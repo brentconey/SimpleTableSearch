@@ -7,7 +7,6 @@
 
             var $tableData = $tableToSearch.children('tbody');
             var showRows = [];
-            var hideRows = [];
             $.each($tableData.children('tr'), function (index, tableRow) {
                 $.each($(tableRow).children('td'), function (ind, tableRecord) {
                     var tableTDText = tableRecord.innerText.toLowerCase();
