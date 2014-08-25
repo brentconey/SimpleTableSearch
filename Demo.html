@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+    <input type="text" class="search-table-textbox" data-tableid="table-to-search" />
+    <table class="reference" id="table-to-search">
+        <thead>
+            <tr>
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Jill</td>
+                <td>Smith</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>Eve</td>
+                <td>Jackson</td>
+                <td>94</td>
+            </tr>
+            <tr>
+                <td>John</td>
+                <td>Doe</td>
+                <td>80</td>
+            </tr>
+            <tr>
+                <td>Adam</td>
+                <td>Johnson</td>
+                <td>67</td>
+            </tr>
+        </tbody>
+    </table>
+    <script type="text/javascript">
+        $(function () {
+            $('.search-table-textbox').on('keyup', function (e) {
+                var searchText = $(this).val();
+                var $tableToSearch = $('#' + $(this).data('tableid'));
+                if (searchText !== '') {
+                    searchText = searchText.toLowerCase();
+
+                    var $tableData = $tableToSearch.children('tbody');
+                    var showRows = [];
+                    var hideRows = [];
+                    $.each($tableData.children('tr'), function (index, tableRow) {
+                        $.each($(tableRow).children('td'), function (ind, tableRecord) {
+                            var tableTDText = tableRecord.innerText.toLowerCase();
+                            if (tableTDText.indexOf(searchText) !== -1 && showRows.indexOf($(tableRow)) === -1) {
+                                showRows.push(tableRow);
+                                return false;
+                            }
+                        });
+                        if ($.inArray(tableRow, showRows) === -1) {
+                            $(tableRow).fadeOut('fast');
+                        } else {
+                            $(tableRow).fadeIn('fast');
+                        }
+                    });
+                } else {
+                    $tableToSearch.children('tbody').children('tr').show();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
