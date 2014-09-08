@@ -7,8 +7,8 @@
             var $tableData = $tableToSearch.children('tbody');
             var showRows = [];
             $.each($tableData.children('tr'), function (index, tableRow) {
-                $.each($(tableRow).children('td:not(.no-search)'), function (ind, tableRecord) {
-                    var tableTDText = tableRecord.innerText.toLowerCase();
+                $.each($(tableRow).children('td').not('.no-search'), function (ind, tableRecord) {
+                    var tableTDText = tableRecord.innerHTML.toLowerCase();
                     if (tableTDText.indexOf(searchText) !== -1 && showRows.indexOf($(tableRow)) === -1) {
                         showRows.push(tableRow);
                         return false;
